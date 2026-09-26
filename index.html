@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- =====================================================
+       DOCUMENT META
+       Title + description use ONLY the information you gave me
+       (name + the three professional roles). Nothing invented.
+       ===================================================== -->
+  <title>Raghav Mehra — Data Analyst · Full Stack Web Developer · AI Automation</title>
+  <meta name="description" content="Portfolio of Raghav Mehra — Data Analyst, Full Stack Web Developer and AI Automation Developer. Projects, skills and contact details are editable placeholders." />
+  <meta name="author" content="Raghav Mehra" />
+  <meta name="theme-color" content="#05070d" />
+  <meta name="color-scheme" content="dark" />
+
+  <!-- Favicon is generated inline with SVG (no external asset, nothing copyrighted) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%23070a13'/><text x='32' y='43' font-family='monospace' font-size='28' font-weight='700' fill='%2338e0c8' text-anchor='middle'>RM</text></svg>" />
+
+  <!-- The only stylesheet of the project -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <!-- Accessibility: lets keyboard users jump straight to the content -->
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- =====================================================
+       1. PRELOADER
+       Animated "system boot" screen. It fills up while the page
+       loads, then script.js fades it out. Safe fallback: if
+       JavaScript is disabled, <noscript> styles hide it below.
+       ===================================================== -->
+  <div id="preloader" class="preloader" role="status" aria-live="polite" aria-label="Loading portfolio">
+    <div class="preloader__inner">
+
+      <!-- Circular progress ring drawn with SVG, plus the RM monogram -->
+      <div class="preloader__monogram">
+        <svg class="preloader__ring" viewBox="0 0 120 120" aria-hidden="true">
+          <circle class="preloader__ring-track" cx="60" cy="60" r="52"></circle>
+          <!-- pathLength="100" lets JavaScript drive the ring with a simple 0–100 value -->
+          <circle id="preloaderRing" class="preloader__ring-progress" cx="60" cy="60" r="52" pathLength="100"></circle>
+        </svg>
+        <span class="preloader__initials">RM</span>
+      </div>
+
+      <!-- Decorative equaliser bars (data-signal look), animated with CSS keyframes -->
+      <div class="preloader__bars" aria-hidden="true">
+        <span style="--i: 0"></span>
+        <span style="--i: 1"></span>
+        <span style="--i: 2"></span>
+        <span style="--i: 3"></span>
+        <span style="--i: 4"></span>
+        <span style="--i: 5"></span>
+        <span style="--i: 6"></span>
+        <span style="--i: 7"></span>
+      </div>
+
+      <p class="preloader__percent"><span id="preloaderPercent">0</span><span class="preloader__percent-sign">%</span></p>
+      <p class="preloader__status" id="preloaderStatus">INITIALIZING</p>
+      <p class="preloader__hint">Raghav Mehra · Data · Web · AI</p>
+    </div>
+  </div>
+
+  <!-- =====================================================
+       CUSTOM CURSOR
+       Two elements: a small dot that follows the pointer closely
+       and a larger ring that lags behind. Activated only on
+       devices with a real mouse (see script.js + style.css).
+       ===================================================== -->
+  <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+
+  <!-- =====================================================
+       ANIMATED BACKGROUND CANVAS
+       Efficient particle/data-network field drawn in script.js.
+       Paused when the tab is hidden and disabled for users who
+       prefer reduced motion.
+       ===================================================== -->
+  <canvas id="bgCanvas" class="bg-canvas" aria-hidden="true"></canvas>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-aurora" aria-hidden="true"></div>
+
+  <!-- Thin reading-progress bar pinned to the very top of the page -->
+  <div class="scroll-progress" aria-hidden="true"><span id="scrollProgressBar"></span></div>
+
+  <!-- =====================================================
+       2. NAVIGATION
+       Sticky header, active-section indicator, animated
+       underline on hover and a hamburger menu for mobile.
+       ===================================================== -->
+  <header class="site-header" id="siteHeader">
+    <nav class="nav container" aria-label="Primary navigation">
+
+      <!-- Brand / logo (text only, no external logo asset) -->
+      <a class="nav__brand" href="#home" aria-label="Raghav Mehra — back to top">
+        <span class="nav__brand-mark" aria-hidden="true">RM</span>
+        <span class="nav__brand-text">
+          <strong>Raghav Mehra</strong>
+          <small>Data · Web · AI</small>
+        </span>
+      </a>
+
+      <!-- Desktop + mobile navigation links -->
+      <ul class="nav__list" id="navList">
+        <li><a class="nav__link is-active" href="#home">Home</a></li>
+        <li><a class="nav__link" href="#about">About</a></li>
+        <li><a class="nav__link" href="#skills">Skills</a></li>
+        <li><a class="nav__link" href="#analytics">Analytics</a></li>
+        <li><a class="nav__link" href="#development">Development</a></li>
+        <li><a class="nav__link" href="#ai-automation">AI Automation</a></li>
+        <li><a class="nav__link" href="#projects">Projects</a></li>
+        <li><a class="nav__link" href="#contact">Contact</a></li>
+      </ul>
+
+      <!-- Hamburger button: only visible on tablet/mobile -->
+      <button class="nav__toggle" id="navToggle" type="button"
+              aria-label="Open navigation menu" aria-expanded="false" aria-controls="navList">
+        <span class="nav__toggle-bar"></span>
+        <span class="nav__toggle-bar"></span>
+        <span class="nav__toggle-bar"></span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- Dark overlay behind the mobile menu -->
+  <div class="nav-overlay" id="navOverlay" aria-hidden="true"></div>
+
+  <main id="main">
+
+    <!-- =====================================================
+         3. HERO SECTION
+         Name + the three professional roles you supplied.
+         Left: text and calls to action. Right: an analytics
+         panel that demonstrates the dashboard aesthetic.
+         ===================================================== -->
+    <section class="hero" id="home">
+      <div class="container hero__inner">
+
+        <div class="hero__content" data-reveal>
+          <p class="eyebrow">
+            <span class="eyebrow__dot" aria-hidden="true"></span>
+            Portfolio · Data · Web · AI
+          </p>
+
+          <h1 class="hero__title">
+            <span class="hero__title-line">Raghav</span>
+            <span class="hero__title-line hero__title-line--gradient">Mehra</span>
+          </h1>
+
+          <!-- The role line cycles through the three roles with a typewriter effect -->
+          <p class="hero__roles" aria-label="Data Analyst, Full Stack Web Developer, AI Automation">
+            <span class="hero__roles-prefix">I work as a</span>
+            <span class="hero__roles-typed" id="roleTyped">Data Analyst</span><span class="caret" id="roleCaret" aria-hidden="true"></span>
+          </p>
+
+          <!-- Supporting text: describes ONLY the three areas you listed.
+               ADD YOUR OWN LINE: extra sentences about your focus or the problems
+               you like to solve can be appended inside this paragraph. -->
+          <p class="hero__lead">
+            I work across three connected areas — <strong>data analytics</strong>,
+            <strong>full stack web development</strong> and <strong>AI automation</strong>:
+            turning raw information into clear dashboards, building full stack web
+            interfaces and services, and wiring AI models into automated workflows.
+          </p>
+
+          <!-- Calls to action -->
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="#projects" data-magnetic>
+              <span>Explore My Work</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true" class="btn__icon">
+                <path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+            <a class="btn btn--ghost" href="#contact" data-magnetic>
+              <span>Let's Connect</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true" class="btn__icon">
+                <path d="M4 6h16v12H4z" fill="none" stroke="currentColor" stroke-width="1.6"/>
+                <path d="M4 7l8 6 8-6" fill="none" stroke="currentColor" stroke-width="1.6"/>
+              </svg>
+            </a>
+          </div>
+
+          <!-- Three chips repeating the roles (no extra claims) -->
+          <ul class="hero__chips" role="list">
+            <li class="chip"><span class="chip__dot chip__dot--data" aria-hidden="true"></span>Data Analytics</li>
+            <li class="chip"><span class="chip__dot chip__dot--web" aria-hidden="true"></span>Full Stack Development</li>
+            <li class="chip"><span class="chip__dot chip__dot--ai" aria-hidden="true"></span>AI Automation</li>
+          </ul>
+
+          <p class="hero__scroll-hint"><span class="hero__scroll-line" aria-hidden="true"></span>Scroll to explore</p>
+        </div>
+
+        <!-- ---------- Hero visual: hero analytics panel ---------- -->
+        <div class="hero__visual" data-reveal data-reveal-delay="140">
+          <!-- DASHBOARD PANEL — DEMO DATA
+               Every figure in this panel is demo data (sample values chosen to shape the
+               layout), not a real measurement: data-count="1284", "92", "47".
+               ADD YOUR NUMBERS: rename the labels ("Metric A" …) and change those data-count
+               values to your own — or delete the whole panel for a simpler hero. -->
+          <div class="panel glass hero-dash" aria-label="Analytics panel">
+            <header class="panel__bar">
+              <span class="panel__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="panel__title">data-console</span>
+            </header>
+
+            <div class="hero-dash__kpis">
+              <div class="kpi kpi--mini">
+                <p class="kpi__label">Metric A</p>
+                <p class="kpi__value"><span class="counter" data-count="1284">0</span></p>
+              </div>
+              <div class="kpi kpi--mini">
+                <p class="kpi__label">Metric B</p>
+                <p class="kpi__value"><span class="counter" data-count="92">0</span>%</p>
+              </div>
+              <div class="kpi kpi--mini">
+                <p class="kpi__label">Metric C</p>
+                <p class="kpi__value"><span class="counter" data-count="47">0</span></p>
+              </div>
+            </div>
+
+            <!-- SAMPLE VISUALIZATION — animated bar chart
+                 Demo data: the bar heights (--h: 46%, 68%, 32% …) are sample values.
+                 Animated with CSS plus a small JS reveal trigger. -->
+            <div class="chart chart--bars" data-chart="bars">
+              <div class="chart__head">
+                <span class="chart__title">Weekly volume</span>
+              </div>
+              <div class="bars" role="img" aria-label="Bar chart">
+                <span class="bar" style="--h: 46%"><i class="bar__fill"></i></span>
+                <span class="bar" style="--h: 68%"><i class="bar__fill"></i></span>
+                <span class="bar" style="--h: 32%"><i class="bar__fill"></i></span>
+                <span class="bar" style="--h: 84%"><i class="bar__fill"></i></span>
+                <span class="bar" style="--h: 56%"><i class="bar__fill"></i></span>
+                <span class="bar" style="--h: 74%"><i class="bar__fill"></i></span>
+                <span class="bar" style="--h: 40%"><i class="bar__fill"></i></span>
+              </div>
+            </div>
+
+            <!-- SAMPLE VISUALIZATION — sparkline drawn in SVG
+                 Demo data: the path coordinates below are sample values. -->
+            <div class="chart chart--spark">
+              <div class="chart__head">
+                <span class="chart__title">Signal trend</span>
+              </div>
+              <svg class="spark" viewBox="0 0 300 60" preserveAspectRatio="none" role="img" aria-label="Trend line">
+                <path class="spark__area" d="M0,46 L40,38 L80,42 L120,24 L160,30 L200,14 L240,20 L300,8 L300,60 L0,60 Z"></path>
+                <path class="spark__line" pathLength="1" d="M0,46 L40,38 L80,42 L120,24 L160,30 L200,14 L240,20 L300,8"></path>
+              </svg>
+            </div>
+
+            <!-- Rotating status line (text comes from PORTFOLIO_CONFIG.heroConsoleLines in script.js) -->
+            <div class="hero-dash__console" aria-hidden="true">
+              <span class="hero-dash__prompt">›</span>
+              <span id="heroConsoleLine">pipeline.status = ready</span>
+            </div>
+          </div>
+
+          <!-- Floating labels around the panel (decorative) -->
+          <span class="float-tag float-tag--1" aria-hidden="true">ETL</span>
+          <span class="float-tag float-tag--2" aria-hidden="true">API</span>
+          <span class="float-tag float-tag--3" aria-hidden="true">AI</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         4. ABOUT SECTION
+         Only the supplied facts are used. Every other line is a
+         clearly bracketed placeholder for you to edit.
+         ===================================================== -->
+    <section class="section about" id="about">
+      <div class="container">
+        <header class="section__head" data-reveal>
+          <p class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>About</p>
+          <h2 class="section__title">Three disciplines, one workflow</h2>
+          <p class="section__lead">
+            Data analytics, full stack development and AI automation are the three areas I
+            work in. Below you can see how they fit together — and where to add your own story.
+          </p>
+        </header>
+
+        <div class="about__grid">
+          <!-- ---------- Photo / visual placeholder ----------
+               HOW TO USE A REAL IMAGE:
+               replace the <svg> below with:
+               <img src="assets/your-photo.jpg" alt="Raghav Mehra" />
+               (create an "assets" folder next to index.html)
+          ------------------------------------------------ -->
+          <figure class="about__photo" data-reveal>
+            <img src="assets/pvt.jpeg" alt="Raghav Mehra" />
+              <defs>
+                <linearGradient id="aboutGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#38e0c8" stop-opacity="0.35"/>
+                  <stop offset="1" stop-color="#8b7bff" stop-opacity="0.35"/>
+                </linearGradient>
+                <pattern id="aboutGrid" width="28" height="28" patternUnits="userSpaceOnUse">
+                  <path d="M28 0H0V28" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+                </pattern>
+              </defs>
+              <rect width="400" height="400" fill="url(#aboutGrid)"/>
+              <circle cx="200" cy="150" r="62" fill="url(#aboutGrad)"/>
+              <path d="M96 330c0-58 46-104 104-104s104 46 104 104z" fill="url(#aboutGrad)"/>
+              <path d="M60 200h40M300 200h40M60 240h28M312 240h28" stroke="rgba(56,224,200,0.5)" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+            <!-- ADD YOUR PHOTO (optional): replace the <svg> above with
+                 <img src="assets/your-photo.jpg" alt="Raghav Mehra" /> -->
+          </figure>
+
+          <!-- ---------- Bio + facts ---------- -->
+          <div class="about__body" data-reveal data-reveal-delay="120">
+            <!-- ADD YOUR BIO HERE (2–3 sentences about you, your focus, how you work):
+                 <p class="about__bio">Your text goes here.</p> -->
+
+            <!-- Editable "at a glance" list. Focus areas are real (you told me them);
+                 everything else is an explicit placeholder. -->
+            <dl class="facts card card--glass">
+              <div class="facts__row">
+                <dt>Name</dt>
+                <dd>Raghav Mehra</dd>
+              </div>
+              <div class="facts__row">
+                <dt>Focus areas</dt>
+                <dd>Data Analytics · Full Stack Web Development · AI Automation</dd>
+              </div>
+              <!-- ADD MORE ROWS AS NEEDED (copy the pattern of the rows above):
+                   <div class="facts__row">
+                     <dt>Experience</dt><dd>Your experience</dd>
+                   </div>
+                   <div class="facts__row">
+                     <dt>Location</dt><dd>Your city</dd>
+                   </div>
+                   <div class="facts__row">
+                     <dt>Availability</dt><dd>Your availability</dd>
+                   </div> -->
+            </dl>
+
+            <!-- Three pillar cards -->
+            <div class="about__pillars">
+              <article class="mini-card" data-magnetic>
+                <span class="mini-card__icon mini-card__icon--data" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M4 19V9M9.5 19V5M15 19v-7M20.5 19v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+                </span>
+                <h3 class="mini-card__title">Data Analyst</h3>
+                <p class="mini-card__text">
+                  Making sense of messy data: shaping it, querying it and presenting it as
+                  dashboards and reports that a non-technical reader can actually use.
+                </p>
+              </article>
+
+              <article class="mini-card" data-magnetic>
+                <span class="mini-card__icon mini-card__icon--web" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2.5" stroke="currentColor" stroke-width="1.8" fill="none"/><path d="M3 9h18M7 6.5h.01M10 6.5h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                </span>
+                <h3 class="mini-card__title">Full Stack Web Developer</h3>
+                <p class="mini-card__text">
+                  Building complete web experiences: the interface people interact with and
+                  the logic, data layer and integrations that run behind it.
+                </p>
+              </article>
+
+              <article class="mini-card" data-magnetic>
+                <span class="mini-card__icon mini-card__icon--ai" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2" stroke="currentColor" stroke-width="1.8" fill="none"/><path d="M12 4v3M12 17v3M4 12h3M17 12h3M6.5 6.5l2 2M15.5 15.5l2 2M17.5 6.5l-2 2M8.5 15.5l-2 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                </span>
+                <h3 class="mini-card__title">AI Automation</h3>
+                <p class="mini-card__text">
+                  Connecting AI models to real processes, so repetitive steps run themselves
+                  and people spend their time on the work that needs judgement.
+                </p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         5. SKILLS SECTION
+         No technologies and no skill percentages are assumed.
+         Every chip is a placeholder you can rename.
+         A commented-out example shows how to add a progress bar
+         once you supply a real level.
+         ===================================================== -->
+    <section class="section skills" id="skills">
+      <div class="container">
+        <header class="section__head" data-reveal>
+          <p class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>Skills</p>
+          <h2 class="section__title">Skills &amp; toolkit</h2>
+          <p class="section__lead">
+            A starter stack for each of the three areas — common tools in every category.
+            Edit any chip below to match what you actually work with: rename, delete or add
+            your own. Skill levels are not shown, because percentages are personal and often
+            misleading.
+          </p>
+        </header>
+
+        <div class="skills__grid">
+          <!-- ---------- Category 1: Data Analytics ---------- -->
+          <article class="skill-card card card--glass skill-card--data" data-reveal>
+            <header class="skill-card__head">
+              <span class="skill-card__icon skill-card__icon--data" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M4 19V9M9.5 19V5M15 19v-7M20.5 19v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+              </span>
+              <h3 class="skill-card__title">Data Analytics</h3>
+            </header>
+            <ul class="chip-list" role="list">
+              <li class="chip chip--tech">Python</li>
+              <li class="chip chip--tech">SQL</li>
+              <li class="chip chip--tech">Excel</li>
+              <li class="chip chip--tech">Power BI</li>
+              <li class="chip chip--tech">Tableau</li>
+              <li class="chip chip--tech">Pandas</li>
+              <li class="chip chip--tech">NumPy</li>
+              <li class="chip chip--tech">Jupyter Notebook</li>
+            </ul>
+            <!--
+              EXAMPLE — SKILL LEVEL BAR (only enable this once you have a REAL level):
+              <div class="skill-bar" data-level="70">
+                <span class="skill-bar__label">Skill name<span class="skill-bar__value">70%</span></span>
+                <span class="skill-bar__track"><i class="skill-bar__fill"></i></span>
+              </div>
+              script.js animates any .skill-bar it finds, using the data-level value.
+            -->
+          </article>
+
+          <!-- ---------- Category 2: Full Stack Development ---------- -->
+          <article class="skill-card card card--glass skill-card--web" data-reveal data-reveal-delay="100">
+            <header class="skill-card__head">
+              <span class="skill-card__icon skill-card__icon--web" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M8 9l-3.5 3L8 15M16 9l3.5 3L16 15M13.5 6l-3 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+              </span>
+              <h3 class="skill-card__title">Full Stack Development</h3>
+            </header>
+            <ul class="chip-list" role="list">
+              <li class="chip chip--tech">HTML5</li>
+              <li class="chip chip--tech">CSS3</li>
+              <li class="chip chip--tech">JavaScript</li>
+              <li class="chip chip--tech">React</li>
+              <li class="chip chip--tech">Node.js</li>
+              <li class="chip chip--tech">Express</li>
+              <li class="chip chip--tech">MongoDB</li>
+              <li class="chip chip--tech">MySQL</li>
+              <li class="chip chip--tech">REST APIs</li>
+              <li class="chip chip--tech">Git &amp; GitHub</li>
+            </ul>
+          </article>
+
+          <!-- ---------- Category 3: AI Automation ---------- -->
+          <article class="skill-card card card--glass skill-card--ai" data-reveal data-reveal-delay="200">
+            <header class="skill-card__head">
+              <span class="skill-card__icon skill-card__icon--ai" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M5 7h6a3 3 0 010 6H9a3 3 0 000 6h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/><circle cx="18.5" cy="7" r="2" stroke="currentColor" stroke-width="1.8" fill="none"/></svg>
+              </span>
+              <h3 class="skill-card__title">AI Automation</h3>
+            </header>
+            <ul class="chip-list" role="list">
+              <li class="chip chip--tech">OpenAI API</li>
+              <li class="chip chip--tech">Gemini API</li>
+              <li class="chip chip--tech">LangChain</li>
+              <li class="chip chip--tech">n8n</li>
+              <li class="chip chip--tech">Zapier</li>
+              <li class="chip chip--tech">Make</li>
+              <li class="chip chip--tech">Prompt Engineering</li>
+              <li class="chip chip--tech">Webhooks</li>
+            </ul>
+          </article>
+        </div>
+        <!-- EDIT THE CHIPS: rename, delete or copy any <li class="chip chip--tech">…</li>
+             item in the three cards above. No skill percentages are shown on purpose. -->
+      </div>
+    </section>
+
+    <!-- =====================================================
+             6. DATA ANALYTICS SECTION
+             Dashboard-style UI.
+             DEMO DATA: every figure in this section is demo data, and each
+             chart is a SAMPLE VISUALIZATION built with HTML, CSS, SVG and
+             JavaScript only — no charting library. Nothing here is a real
+             measurement until you replace it with your own numbers.
+             ===================================================== -->
+    <section class="section analytics" id="analytics">
+      <div class="container">
+        <header class="section__head" data-reveal>
+          <p class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>Data Analytics</p>
+          <h2 class="section__title">Analytics dashboard</h2>
+          <p class="section__lead">
+            Work in this area usually means collecting data, cleaning and modelling it, then
+            presenting it as dashboards and reports. The interface below is built entirely with
+            HTML, CSS, SVG and JavaScript — no charting library.
+          </p>
+        </header>
+
+        <!-- KPI ROW — DEMO DATA
+             These four counters (1280, 94, 36, 12) are demo values, not real metrics.
+             The counters animate when scrolled into view.
+             ADD YOUR NUMBERS: change data-count="1280" to your own value and rename the label
+             so each card describes a metric you actually track.
+             To show a "Demo Data" badge again, uncomment the .badge--demo rule in style.css
+             and add this inside any card:
+             <span class="badge badge--demo">Demo Data</span> -->
+        <div class="kpi-grid">
+          <article class="kpi card card--glass" data-reveal>
+            <p class="kpi__label">Metric A</p>
+            <p class="kpi__value"><span class="counter" data-count="1280">0</span></p>
+          </article>
+          <article class="kpi card card--glass" data-reveal data-reveal-delay="80">
+            <p class="kpi__label">Metric B</p>
+            <p class="kpi__value"><span class="counter" data-count="94">0</span>%</p>
+          </article>
+          <article class="kpi card card--glass" data-reveal data-reveal-delay="160">
+            <p class="kpi__label">Metric C</p>
+            <p class="kpi__value"><span class="counter" data-count="36">0</span></p>
+          </article>
+          <article class="kpi card card--glass" data-reveal data-reveal-delay="240">
+            <p class="kpi__label">Metric D</p>
+            <p class="kpi__value"><span class="counter" data-count="12">0</span>.5k</p>
+          </article>
+        </div>
+
+        <!-- Charts built with SVG + CSS only (no charting library) -->
+        <div class="dash-grid">
+          <!-- Bar chart — SAMPLE VISUALIZATION (DEMO DATA)
+               The bar heights (--h values below) are sample numbers. -->
+          <article class="chart-card card card--glass" data-reveal>
+            <header class="chart-card__head">
+              <h3 class="chart-card__title">Bar chart</h3>
+            </header>
+            <div class="bars bars--tall" role="img" aria-label="Bar chart">
+              <span class="bar" style="--h: 42%"><i class="bar__fill"></i></span>
+              <span class="bar" style="--h: 66%"><i class="bar__fill"></i></span>
+              <span class="bar" style="--h: 30%"><i class="bar__fill"></i></span>
+              <span class="bar" style="--h: 88%"><i class="bar__fill"></i></span>
+              <span class="bar" style="--h: 54%"><i class="bar__fill"></i></span>
+              <span class="bar" style="--h: 72%"><i class="bar__fill"></i></span>
+              <span class="bar" style="--h: 38%"><i class="bar__fill"></i></span>
+              <span class="bar" style="--h: 62%"><i class="bar__fill"></i></span>
+            </div>
+            <ul class="axis-labels" role="list">
+              <li>Mon</li><li>Tue</li><li>Wed</li><li>Thu</li><li>Fri</li><li>Sat</li><li>Sun</li><li>Avg</li>
+            </ul>
+          </article>
+
+          <!-- Line chart — SAMPLE VISUALIZATION (DEMO DATA)
+               The SVG path points and the four marker circles are sample numbers. -->
+          <article class="chart-card card card--glass" data-reveal data-reveal-delay="100">
+            <header class="chart-card__head">
+              <h3 class="chart-card__title">Trend line</h3>
+            </header>
+            <svg class="line-chart" viewBox="0 0 420 200" preserveAspectRatio="none" role="img" aria-label="Line chart">
+              <defs>
+                <linearGradient id="lineFill" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#38e0c8" stop-opacity="0.35"/>
+                  <stop offset="1" stop-color="#38e0c8" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <!-- Horizontal grid lines -->
+              <g class="line-chart__grid">
+                <line x1="0" y1="40" x2="420" y2="40"/>
+                <line x1="0" y1="90" x2="420" y2="90"/>
+                <line x1="0" y1="140" x2="420" y2="140"/>
+                <line x1="0" y1="190" x2="420" y2="190"/>
+              </g>
+              <path class="line-chart__area" d="M0,150 L60,120 L120,132 L180,86 L240,104 L300,56 L360,70 L420,34 L420,200 L0,200 Z"></path>
+              <path class="line-chart__line" pathLength="1" d="M0,150 L60,120 L120,132 L180,86 L240,104 L300,56 L360,70 L420,34"></path>
+              <g class="line-chart__points">
+                <circle cx="60" cy="120" r="4"/>
+                <circle cx="180" cy="86" r="4"/>
+                <circle cx="300" cy="56" r="4"/>
+                <circle cx="420" cy="34" r="4"/>
+              </g>
+            </svg>
+            <!-- Legend for the line chart (DEMO DATA — rename "Series A" to your own series) -->
+            <ul class="legend" role="list">
+              <li><span class="legend__swatch legend__swatch--a" aria-hidden="true"></span>Series A</li>
+            </ul>
+          </article>
+
+          <!-- Donut chart — SAMPLE VISUALIZATION (DEMO DATA)
+               The data-share values 45 / 30 / 25 are sample percentages. -->
+          <article class="chart-card card card--glass" data-reveal data-reveal-delay="200">
+            <header class="chart-card__head">
+              <h3 class="chart-card__title">Category split</h3>
+            </header>
+            <div class="donut-wrap">
+              <svg class="donut" viewBox="0 0 120 120" role="img" aria-label="Donut chart">
+                <g transform="rotate(-90 60 60)">
+                  <circle class="donut__track" cx="60" cy="60" r="54"></circle>
+                  <!-- dasharray values are written by script.js from data-share attributes -->
+                  <circle class="donut__seg donut__seg--a" cx="60" cy="60" r="54" data-share="45"></circle>
+                  <circle class="donut__seg donut__seg--b" cx="60" cy="60" r="54" data-share="30"></circle>
+                  <circle class="donut__seg donut__seg--c" cx="60" cy="60" r="54" data-share="25"></circle>
+                </g>
+                <text x="60" y="57" class="donut__center-value">100%</text>
+                <text x="60" y="72" class="donut__center-label">total</text>
+              </svg>
+              <!-- Legend for the donut (DEMO DATA: 45% / 30% / 25% are sample shares) -->
+              <ul class="legend legend--stack" role="list">
+                <li><span class="legend__swatch legend__swatch--a" aria-hidden="true"></span>Segment A · 45%</li>
+                <li><span class="legend__swatch legend__swatch--b" aria-hidden="true"></span>Segment B · 30%</li>
+                <li><span class="legend__swatch legend__swatch--c" aria-hidden="true"></span>Segment C · 25%</li>
+              </ul>
+            </div>
+            <!-- ADD YOUR SHARES: the data-share attributes on the circles above set each segment. -->
+          </article>
+
+          <!-- Data grid — DEMO DATA
+               The four rows below are empty placeholder records (Item 01-04, values "— —"). -->
+          <article class="chart-card card card--glass" data-reveal data-reveal-delay="300">
+            <header class="chart-card__head">
+              <h3 class="chart-card__title">Data grid</h3>
+            </header>
+            <div class="data-table" role="table" aria-label="Data grid">
+              <div class="data-table__row data-table__row--head" role="row">
+                <span role="columnheader">Record</span>
+                <span role="columnheader">Value</span>
+                <span role="columnheader">Status</span>
+              </div>
+              <div class="data-table__row" role="row"><span role="cell">Item 01</span><span role="cell">— —</span><span role="cell"><em class="pill pill--ok">ok</em></span></div>
+              <div class="data-table__row" role="row"><span role="cell">Item 02</span><span role="cell">— —</span><span role="cell"><em class="pill pill--warn">review</em></span></div>
+              <div class="data-table__row" role="row"><span role="cell">Item 03</span><span role="cell">— —</span><span role="cell"><em class="pill pill--ok">ok</em></span></div>
+              <div class="data-table__row" role="row"><span role="cell">Item 04</span><span role="cell">— —</span><span role="cell"><em class="pill pill--ok">ok</em></span></div>
+            </div>
+            <!-- ADD YOUR DATA: replace the Item 01–04 rows above with your own records. -->
+          </article>
+        </div>
+
+        <!-- Scrolling ticker — decorative, and the values inside it are DEMO DATA.
+             The track is duplicated once so the loop is seamless. -->
+        <div class="stream card card--glass" data-reveal aria-hidden="true">
+          <div class="stream__track">
+            <span>ingest → clean → model → visualise</span>
+            <span>records: 0000</span>
+            <span>pipeline → dashboard → decision</span>
+            <span>ingest · transform · load</span>
+            <span>ingest → clean → model → visualise</span>
+            <span>records: 0000</span>
+            <span>pipeline → dashboard → decision</span>
+            <span>ingest · transform · load</span>
+          </div>
+        </div>
+        <!-- ADD YOUR NUMBERS: everything above is DEMO DATA / SAMPLE VISUALIZATION.
+             Replace the figures with your own values, or delete the whole dashboard block. -->
+      </div>
+    </section>
+
+    <!-- =====================================================
+         7. FULL STACK DEVELOPMENT SECTION
+         Browser mockup + code window + animated
+         Frontend → API → Backend → Database architecture flow.
+         ===================================================== -->
+    <section class="section development" id="development">
+      <div class="container">
+        <header class="section__head" data-reveal>
+          <p class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>Full Stack Development</p>
+          <h2 class="section__title">From interface to database</h2>
+          <p class="section__lead">
+            A full stack build connects what the user sees with the logic, services and data
+            behind it. The diagram below shows that path — replace the bracketed labels with
+            the technologies you actually use.
+          </p>
+        </header>
+
+        <div class="dev__grid">
+          <!-- ---------- Animated browser mockup ---------- -->
+          <div class="browser card card--glass" data-reveal>
+            <div class="browser__chrome">
+              <span class="browser__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="browser__url" aria-hidden="true">your-domain.example</span>
+            </div>
+
+            <div class="browser__body">
+              <!-- Code window: a generic HTML snippet (no technology claims made) -->
+              <pre class="code"><code>
+<span class="code__t">&lt;section</span> <span class="code__a">class</span>=<span class="code__s">"card"</span><span class="code__t">&gt;</span>
+  <span class="code__t">&lt;h2&gt;</span>Hello from the frontend<span class="code__t">&lt;/h2&gt;</span>
+  <span class="code__t">&lt;p&gt;</span>Rendered in the browser
+     by HTML, CSS and JavaScript.<span class="code__t">&lt;/p&gt;</span>
+<span class="code__t">&lt;/section&gt;</span></code></pre>
+
+              <div class="browser__preview">
+                <p class="browser__preview-tag">Rendered result</p>
+                <div class="ui-card">
+                  <h3 class="ui-card__title">Hello from the frontend</h3>
+                  <p class="ui-card__text">Rendered in the browser by HTML, CSS and JavaScript.</p>
+                  <span class="ui-card__btn">Action</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ---------- Architecture flow (animated in script.js) ---------- -->
+          <div class="arch card card--glass" data-reveal data-reveal-delay="120" data-arch>
+            <header class="arch__head">
+              <h3 class="arch__title">Request flow</h3>
+            </header>
+
+            <!-- ADD YOUR STACK: each node can carry a technology line inside <small>, e.g.
+                 <span class="arch__node-text">
+                   <strong>Frontend</strong><small>HTML5 · CSS3 · JavaScript</small>
+                 </span> -->
+            <ol class="arch__flow" role="list">
+              <li class="arch__node" data-arch-node>
+                <span class="arch__node-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.7" fill="none"/><path d="M3 9h18" stroke="currentColor" stroke-width="1.7"/></svg>
+                </span>
+                <span class="arch__node-text">
+                  <strong>Frontend</strong>
+                </span>
+              </li>
+              <li class="arch__link" aria-hidden="true"><span class="arch__packet"></span></li>
+
+              <li class="arch__node" data-arch-node>
+                <span class="arch__node-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M8 7h8M8 12h8M8 17h5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" fill="none"/></svg>
+                </span>
+                <span class="arch__node-text">
+                  <strong>API</strong>
+                </span>
+              </li>
+              <li class="arch__link" aria-hidden="true"><span class="arch__packet"></span></li>
+
+              <li class="arch__node" data-arch-node>
+                <span class="arch__node-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="7" rx="2" stroke="currentColor" stroke-width="1.7" fill="none"/><rect x="3" y="13" width="18" height="7" rx="2" stroke="currentColor" stroke-width="1.7" fill="none"/></svg>
+                </span>
+                <span class="arch__node-text">
+                  <strong>Backend</strong>
+                </span>
+              </li>
+              <li class="arch__link" aria-hidden="true"><span class="arch__packet"></span></li>
+
+              <li class="arch__node" data-arch-node>
+                <span class="arch__node-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="3" stroke="currentColor" stroke-width="1.7" fill="none"/><path d="M5 6v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6" stroke="currentColor" stroke-width="1.7" fill="none"/></svg>
+                </span>
+                <span class="arch__node-text">
+                  <strong>Database</strong>
+                </span>
+              </li>
+            </ol>
+
+            <!-- Responsive UI demonstration: three widths drawn with CSS -->
+            <div class="responsive-check">
+              <p class="responsive-check__title">Responsive layout check</p>
+              <div class="responsive-check__row">
+                <span class="device device--desktop" aria-hidden="true"><i></i></span>
+                <span class="device device--tablet" aria-hidden="true"><i></i></span>
+                <span class="device device--mobile" aria-hidden="true"><i></i></span>
+              </div>
+              <p class="responsive-check__legend">Desktop · Tablet · Mobile</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Capability cards (generic descriptions of the discipline, no project claims) -->
+        <div class="dev__cards">
+          <article class="mini-card" data-reveal data-magnetic>
+            <h3 class="mini-card__title">Interfaces</h3>
+            <p class="mini-card__text">Layouts, components and interactions that stay usable on every screen size.</p>
+          </article>
+          <article class="mini-card" data-reveal data-reveal-delay="80" data-magnetic>
+            <h3 class="mini-card__title">Logic &amp; services</h3>
+            <p class="mini-card__text">Server-side code and APIs that validate input, apply rules and return responses.</p>
+          </article>
+          <article class="mini-card" data-reveal data-reveal-delay="160" data-magnetic>
+            <h3 class="mini-card__title">Data layer</h3>
+            <p class="mini-card__text">Structured storage, queries and the models that keep application data consistent.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         8. AI AUTOMATION SECTION
+         Human → AI → Automation → Process → Result workflow.
+         Nodes activate one after another when scrolled into view.
+         ===================================================== -->
+    <section class="section automation" id="ai-automation">
+      <div class="container">
+        <header class="section__head" data-reveal>
+          <p class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>AI Automation</p>
+          <h2 class="section__title">Human → AI → Automation → Result</h2>
+          <p class="section__lead">
+            AI automation means letting a model handle the repetitive decision or writing step
+            inside a process, while the surrounding system keeps things reliable. The flow
+            below shows how those pieces connect.
+          </p>
+        </header>
+
+        <!-- Workflow rails: each step lights up in sequence -->
+        <div class="workflow card card--glass" data-reveal data-workflow>
+          <ol class="workflow__list" role="list">
+            <li class="workflow__step" data-workflow-step>
+              <span class="workflow__index">01</span>
+              <h3 class="workflow__title">User</h3>
+              <p class="workflow__text">A request, a form submission or a message enters the system.</p>
+            </li>
+            <li class="workflow__step" data-workflow-step>
+              <span class="workflow__index">02</span>
+              <h3 class="workflow__title">AI</h3>
+              <p class="workflow__text">A model interprets the input, summarises it or produces a draft.</p>
+            </li>
+            <li class="workflow__step" data-workflow-step>
+              <span class="workflow__index">03</span>
+              <h3 class="workflow__title">Automation</h3>
+              <p class="workflow__text">Rules decide what happens next — route, store, notify or escalate.</p>
+            </li>
+            <li class="workflow__step" data-workflow-step>
+              <span class="workflow__index">04</span>
+              <h3 class="workflow__title">Process</h3>
+              <p class="workflow__text">The connected systems carry the work out, step by step.</p>
+            </li>
+            <li class="workflow__step" data-workflow-step>
+              <span class="workflow__index">05</span>
+              <h3 class="workflow__title">Result</h3>
+              <p class="workflow__text">A finished output, a saved record or a human review point.</p>
+            </li>
+          </ol>
+          <div class="workflow__rail" aria-hidden="true"><span class="workflow__pulse"></span></div>
+        </div>
+
+        <div class="automation__grid">
+          <article class="card card--glass automation__card" data-reveal>
+            <h3 class="automation__card-title">What I build in this area</h3>
+            <!-- ADD A DESCRIPTION OF THE AUTOMATIONS YOU BUILD (2–3 lines) — place it here as:
+                 <p class="automation__card-text">Your text goes here.</p> -->
+            <ul class="tick-list" role="list">
+              <li><span class="tick" aria-hidden="true">✓</span>AI-assisted content and reporting steps</li>
+              <li><span class="tick" aria-hidden="true">✓</span>Connecting tools and services through APIs</li>
+              <li><span class="tick" aria-hidden="true">✓</span>Removing repeated manual work from a process</li>
+              <li><span class="tick" aria-hidden="true">✓</span>Keeping a human review step where it matters</li>
+            </ul>
+          </article>
+
+          <article class="card card--glass automation__card" data-reveal data-reveal-delay="120">
+            <h3 class="automation__card-title">Tools &amp; platforms</h3>
+            <p class="automation__card-text">
+              The platforms I reach for when connecting AI models to real processes.
+            </p>
+            <ul class="chip-list" role="list">
+              <li class="chip chip--tech">OpenAI API</li>
+              <li class="chip chip--tech">Gemini API</li>
+              <li class="chip chip--tech">LangChain</li>
+              <li class="chip chip--tech">n8n</li>
+              <li class="chip chip--tech">Zapier</li>
+              <li class="chip chip--tech">Make</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         9. PROJECTS SECTION
+         IMPORTANT: no projects have been invented.
+         Each card below is an EMPTY TEMPLATE. Copy the commented
+         block and fill in your own project details.
+         ===================================================== -->
+    <section class="section projects" id="projects">
+      <div class="container">
+        <header class="section__head" data-reveal>
+          <p class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>Projects</p>
+          <h2 class="section__title">Selected work</h2>
+          <!-- PROJECTS: the cards below are empty templates. The full example markup is in the
+               comment block further down this section — copy it to add a project. -->
+        </header>
+
+        <!-- ============================================================
+             HOW TO ADD A PROJECT (copy this whole <article> block):
+
+             <article class="project-card card card--glass" data-reveal>
+               <div class="project-card__preview">
+                 <img src="assets/project-01.png" alt="Screenshot of Project 01" loading="lazy" />
+               </div>
+               <div class="project-card__body">
+                 <p class="project-card__index">Project 04</p>
+                 <h3 class="project-card__title">Your project name</h3>
+                 <p class="project-card__text">One or two sentences about the problem and what you built.</p>
+                 <ul class="tag-list" role="list">
+                   <li class="tag">Technology</li>
+                 </ul>
+                 <div class="project-card__actions">
+                   <a class="btn btn--small btn--primary" href="https://your-project-url" target="_blank" rel="noopener">Live Demo</a>
+                   <a class="btn btn--small btn--ghost" href="https://github.com/your-repo" target="_blank" rel="noopener">GitHub</a>
+                 </div>
+               </div>
+             </article>
+             ============================================================ -->
+
+        <div class="projects__grid">
+
+          <!-- ---------- PROJECT 01 (placeholder) ---------- -->
+          <!-- ADD YOUR PROJECT HERE -->
+          <article class="project-card card card--glass" data-reveal>
+            <div class="project-card__preview project-card__preview--a">
+              <!-- Example preview graphic (drawn with SVG). Swap for: <img src="assets/project-01.png" alt="..." loading="lazy" /> -->
+              <svg viewBox="0 0 800 450" role="img" aria-label="Example project preview graphic — analytics motif">
+                <defs>
+                  <linearGradient id="pA" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#0b1720"/>
+                    <stop offset="1" stop-color="#0a1d24"/>
+                  </linearGradient>
+                  <linearGradient id="pAb" x1="0" y1="1" x2="0" y2="0">
+                    <stop offset="0" stop-color="#38e0c8" stop-opacity="0.25"/>
+                    <stop offset="1" stop-color="#38e0c8"/>
+                  </linearGradient>
+                </defs>
+                <rect width="800" height="450" fill="url(#pA)"/>
+                <g stroke="rgba(56,224,200,0.12)">
+                  <path d="M0 90h800M0 180h800M0 270h800M0 360h800"/>
+                  <path d="M200 0v450M400 0v450M600 0v450"/>
+                </g>
+                <rect x="80" y="300" width="60" height="90" rx="6" fill="url(#pAb)"/>
+                <rect x="170" y="250" width="60" height="140" rx="6" fill="url(#pAb)"/>
+                <rect x="260" y="200" width="60" height="190" rx="6" fill="url(#pAb)"/>
+                <rect x="350" y="265" width="60" height="125" rx="6" fill="url(#pAb)"/>
+                <rect x="440" y="160" width="60" height="230" rx="6" fill="url(#pAb)"/>
+                <path d="M80 260 L260 210 L440 140 L620 96 L740 70" fill="none" stroke="#38e0c8" stroke-width="3" stroke-linecap="round" opacity="0.85"/>
+                <circle cx="620" cy="96" r="7" fill="#38e0c8"/>
+              </svg>
+              <span class="badge badge--placeholder project-card__badge">Example image</span>
+            </div>
+
+            <div class="project-card__body">
+              <p class="project-card__index">Project 01</p>
+              <!-- ADD PROJECT DETAILS HERE: title, 1–2 sentence description and technology tags
+                   (see the example block at the top of this section) -->
+              <div class="project-card__actions">
+                <a class="btn btn--small btn--primary" href="#" data-placeholder-link>Live Demo</a>
+                <a class="btn btn--small btn--ghost" href="#" data-placeholder-link>GitHub</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- ---------- PROJECT 02 (placeholder) ---------- -->
+          <!-- ADD YOUR PROJECT HERE -->
+          <article class="project-card card card--glass" data-reveal data-reveal-delay="100">
+            <div class="project-card__preview project-card__preview--b">
+              <svg viewBox="0 0 800 450" role="img" aria-label="Example project preview graphic — web application motif">
+                <defs>
+                  <linearGradient id="pB" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#0d1226"/>
+                    <stop offset="1" stop-color="#131038"/>
+                  </linearGradient>
+                </defs>
+                <rect width="800" height="450" fill="url(#pB)"/>
+                <rect x="90" y="70" width="620" height="310" rx="16" fill="rgba(255,255,255,0.04)" stroke="rgba(139,123,255,0.45)"/>
+                <rect x="90" y="70" width="620" height="46" rx="16" fill="rgba(139,123,255,0.18)"/>
+                <circle cx="122" cy="93" r="7" fill="#8b7bff"/>
+                <circle cx="146" cy="93" r="7" fill="#8b7bff" opacity="0.6"/>
+                <circle cx="170" cy="93" r="7" fill="#8b7bff" opacity="0.35"/>
+                <rect x="126" y="146" width="240" height="20" rx="6" fill="rgba(255,255,255,0.45)"/>
+                <rect x="126" y="182" width="330" height="12" rx="6" fill="rgba(255,255,255,0.2)"/>
+                <rect x="126" y="204" width="280" height="12" rx="6" fill="rgba(255,255,255,0.2)"/>
+                <rect x="126" y="248" width="130" height="38" rx="10" fill="rgba(139,123,255,0.85)"/>
+                <rect x="494" y="146" width="180" height="140" rx="12" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.14)"/>
+                <path d="M516 250 L556 216 L596 232 L636 186" fill="none" stroke="#8b7bff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                <rect x="126" y="312" width="548" height="36" rx="10" fill="rgba(255,255,255,0.05)"/>
+              </svg>
+              <span class="badge badge--placeholder project-card__badge">Example image</span>
+            </div>
+
+            <div class="project-card__body">
+              <p class="project-card__index">Project 02</p>
+              <!-- ADD PROJECT DETAILS HERE: title, 1–2 sentence description and technology tags
+                   (see the example block at the top of this section) -->
+              <div class="project-card__actions">
+                <a class="btn btn--small btn--primary" href="#" data-placeholder-link>Live Demo</a>
+                <a class="btn btn--small btn--ghost" href="#" data-placeholder-link>GitHub</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- ---------- PROJECT 03 (placeholder) ---------- -->
+          <!-- ADD YOUR PROJECT HERE -->
+          <article class="project-card card card--glass" data-reveal data-reveal-delay="200">
+            <div class="project-card__preview project-card__preview--c">
+              <svg viewBox="0 0 800 450" role="img" aria-label="Example project preview graphic — automation workflow motif">
+                <defs>
+                  <linearGradient id="pC" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#0a1a18"/>
+                    <stop offset="1" stop-color="#101526"/>
+                  </linearGradient>
+                </defs>
+                <rect width="800" height="450" fill="url(#pC)"/>
+                <g stroke="rgba(56,224,200,0.35)" stroke-width="2" fill="none">
+                  <path d="M180 120 H340"/>
+                  <path d="M460 120 H620"/>
+                  <path d="M400 180 V270"/>
+                  <path d="M240 330 H560"/>
+                </g>
+                <rect x="90" y="86" width="90" height="68" rx="14" fill="rgba(56,224,200,0.16)" stroke="rgba(56,224,200,0.7)"/>
+                <rect x="340" y="86" width="120" height="68" rx="14" fill="rgba(139,123,255,0.18)" stroke="rgba(139,123,255,0.75)"/>
+                <rect x="620" y="86" width="90" height="68" rx="14" fill="rgba(56,224,200,0.16)" stroke="rgba(56,224,200,0.7)"/>
+                <rect x="320" y="270" width="160" height="68" rx="14" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.25)"/>
+                <rect x="160" y="300" width="80" height="60" rx="12" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.2)"/>
+                <rect x="560" y="300" width="80" height="60" rx="12" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.2)"/>
+                <circle cx="400" cy="120" r="6" fill="#8b7bff"/>
+                <circle cx="400" cy="330" r="6" fill="#38e0c8"/>
+              </svg>
+              <span class="badge badge--placeholder project-card__badge">Example image</span>
+            </div>
+
+            <div class="project-card__body">
+              <p class="project-card__index">Project 03</p>
+              <!-- ADD PROJECT DETAILS HERE: title, 1–2 sentence description and technology tags
+                   (see the example block at the top of this section) -->
+              <div class="project-card__actions">
+                <a class="btn btn--small btn--primary" href="#" data-placeholder-link>Live Demo</a>
+                <a class="btn btn--small btn--ghost" href="#" data-placeholder-link>GitHub</a>
+              </div>
+            </div>
+          </article>
+        </div>
+        <!-- LINK YOUR PROJECTS: replace href="#" on each Live Demo / GitHub button with your real
+             URLs and remove the data-placeholder-link attribute so the buttons navigate. -->
+      </div>
+    </section>
+
+    <!-- =====================================================
+         10. CONTACT SECTION
+         No contact details are invented. Everything is a
+         placeholder. The form is FRONTEND-ONLY (see the comment
+         inside the form and the note below it).
+         ===================================================== -->
+    <section class="section contact" id="contact">
+      <div class="container">
+        <header class="section__head" data-reveal>
+          <p class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>Contact</p>
+          <h2 class="section__title">Let's connect</h2>
+        </header>
+
+        <div class="contact__grid">
+
+          <!-- ---------- Contact channels (placeholders) ---------- -->
+          <div class="contact__channels" data-reveal>
+            <!-- EMAIL: set href="mailto:you@example.com" and remove data-placeholder-link -->
+            <a class="contact-link card card--glass" href="#" data-placeholder-link>
+              <span class="contact-link__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.7" fill="none"/><path d="M3 7l9 6.5L21 7" stroke="currentColor" stroke-width="1.7" fill="none"/></svg>
+              </span>
+              <span class="contact-link__body">
+                <small class="contact-link__label">Email</small>
+                <!-- ADD YOUR EMAIL: <span class="contact-link__value">you@example.com</span>
+                     (also set href="mailto:you@example.com" and remove data-placeholder-link) -->
+              </span>
+              <span class="contact-link__arrow" aria-hidden="true">→</span>
+            </a>
+
+            <!-- LINKEDIN: replace href="#" with your full profile URL and add target="_blank" rel="noopener" -->
+            <a class="contact-link card card--glass" href="#" data-placeholder-link>
+              <span class="contact-link__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4" stroke="currentColor" stroke-width="1.7" fill="none"/><path d="M7.5 10v6.5M7.5 7.6v.1M11.5 16.5V10m0 2.6c0-1.6 1-2.6 2.4-2.6s2.1 1 2.1 2.6v3.9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" fill="none"/></svg>
+              </span>
+              <span class="contact-link__body">
+                <small class="contact-link__label">LinkedIn</small>
+                <!-- ADD YOUR LINKEDIN: <span class="contact-link__value">linkedin.com/in/your-profile</span>
+                     (also replace href="#" with the URL and remove data-placeholder-link) -->
+              </span>
+              <span class="contact-link__arrow" aria-hidden="true">→</span>
+            </a>
+
+            <!-- GITHUB: replace href="#" with your full profile URL and add target="_blank" rel="noopener" -->
+            <a class="contact-link card card--glass" href="#" data-placeholder-link>
+              <span class="contact-link__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M9 19.5c-4 1.2-4-2-5.5-2.4M15 21v-3.6c0-1 .1-1.4-.5-2 2.3-.3 4.5-1.2 4.5-5.2a4 4 0 00-1.1-2.8 3.7 3.7 0 00-.1-2.9s-1.2-.3-3.7 1.4a9.4 9.4 0 00-5 0C6.6 4.2 5.4 4.5 5.4 4.5a3.7 3.7 0 00-.1 2.9A4 4 0 004.2 10c0 4 2.2 4.9 4.5 5.2-.6.6-.6 1.2-.5 2V21" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+              </span>
+              <span class="contact-link__body">
+                <small class="contact-link__label">GitHub</small>
+                <!-- ADD YOUR GITHUB: <span class="contact-link__value">github.com/your-username</span>
+                     (also replace href="#" with the URL and remove data-placeholder-link) -->
+              </span>
+              <span class="contact-link__arrow" aria-hidden="true">→</span>
+            </a>
+
+            <!-- LOCATION (optional) -->
+            <div class="contact-link card card--glass contact-link--static">
+              <span class="contact-link__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M12 21s7-6.1 7-11a7 7 0 10-14 0c0 4.9 7 11 7 11z" stroke="currentColor" stroke-width="1.7" fill="none"/><circle cx="12" cy="10" r="2.6" stroke="currentColor" stroke-width="1.7" fill="none"/></svg>
+              </span>
+              <span class="contact-link__body">
+                <small class="contact-link__label">Location</small>
+                <!-- OPTIONAL LOCATION: <span class="contact-link__value">Your City, Country</span> -->
+              </span>
+            </div>
+          </div>
+
+          <!-- ---------- Contact form ----------
+               NOTE: this form is FRONTEND-ONLY. It does not send
+               anything anywhere. See the note under the form and
+               the README section "Connecting the contact form".
+          ------------------------------------------- -->
+          <form class="contact-form card card--glass" id="contactForm" novalidate data-reveal data-reveal-delay="120">
+            <h3 class="contact-form__title">Send a message</h3>
+
+            <div class="field">
+              <label class="field__label" for="contactName">Your name</label>
+              <input class="field__input" id="contactName" name="name" type="text" autocomplete="name" placeholder="Jane Doe" required />
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="contactEmail">Your email</label>
+              <input class="field__input" id="contactEmail" name="email" type="email" autocomplete="email" placeholder="jane@example.com" required />
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="contactMessage">Message</label>
+              <textarea class="field__input field__input--area" id="contactMessage" name="message" rows="5" placeholder="Write your message…" required></textarea>
+            </div>
+
+            <button class="btn btn--primary btn--full" type="submit" data-magnetic>
+              <span>Send message</span>
+            </button>
+
+            <!-- Live feedback region for the form (filled by script.js) -->
+            <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+            <!-- NOTE: this form is frontend-only — nothing is sent anywhere. To receive
+                 messages, connect it to a backend or a form service (see README). -->
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =====================================================
+       11. FOOTER
+       ===================================================== -->
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <div class="site-footer__brand">
+        <span class="nav__brand-mark" aria-hidden="true">RM</span>
+        <div>
+          <p class="site-footer__name">Raghav Mehra</p>
+          <p class="site-footer__roles">Data Analyst · Full Stack Web Developer · AI Automation</p>
+        </div>
+      </div>
+
+      <p class="site-footer__copy">© <span id="footerYear">2026</span> Raghav Mehra</p>
+
+      <button class="btn btn--ghost btn--small" type="button" id="backToTop">
+        <span>Back to top</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true" class="btn__icon">
+          <path d="M12 19V5M6 11l6-6 6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+  </footer>
+
+  <!-- =====================================================
+       12. GEMINI AI CHATBOX
+       Floating button (bottom-right) + assistant panel.
+       Logic and API configuration live in script.js
+       (section "GEMINI AI CHAT").
+       ===================================================== -->
+
+  <!-- Floating toggle button: shows the chat icon, becomes a close icon when open -->
+  <button class="chat-toggle" id="chatToggle" type="button" aria-label="Open the AI chat assistant"
+          aria-expanded="false" aria-controls="chatPanel">
+    <span class="chat-toggle__pulse" aria-hidden="true"></span>
+    <svg class="chat-toggle__icon chat-toggle__icon--chat" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M20 12.5c0 4-3.6 7-8 7-1 0-2-.2-2.9-.5L5 20.5l1-3.2A6.8 6.8 0 014 12.5c0-4 3.6-7 8-7s8 3 8 7z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+      <circle cx="9" cy="12.5" r="1.1" fill="currentColor"/>
+      <circle cx="12" cy="12.5" r="1.1" fill="currentColor"/>
+      <circle cx="15" cy="12.5" r="1.1" fill="currentColor"/>
+    </svg>
+    <svg class="chat-toggle__icon chat-toggle__icon--close" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
+    </svg>
+    <span class="chat-toggle__label">AI Chat</span>
+  </button>
+
+  <!-- Assistant panel -->
+  <section class="chat-panel" id="chatPanel" role="dialog" aria-labelledby="chatTitle">
+
+    <header class="chat-panel__header">
+      <div class="chat-panel__identity">
+        <span class="chat-avatar" aria-hidden="true">AI</span>
+        <div>
+          <h2 class="chat-panel__title" id="chatTitle">Raghav AI Assistant</h2>
+          <p class="chat-panel__status" id="chatStatus">
+            <span class="chat-panel__status-dot" aria-hidden="true"></span>
+            <span id="chatStatusText">Ready — answers only from this portfolio's content</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="chat-panel__actions">
+        <button class="chat-icon-btn" id="chatClear" type="button" aria-label="Clear the conversation">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V5h6v2M6 7l1 13h10l1-13M10 11v6M14 11v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" fill="none"/></svg>
+        </button>
+        <button class="chat-icon-btn" id="chatClose" type="button" aria-label="Close the chat">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Message list. aria-live keeps screen readers updated. -->
+    <div class="chat-messages" id="chatMessages" role="log" aria-live="polite" aria-label="Conversation"></div>
+
+    <!-- Quick starter prompts (client-side only) -->
+    <div class="chat-suggestions" id="chatSuggestions">
+      <button class="chat-suggestion" type="button">What does Raghav do?</button>
+      <button class="chat-suggestion" type="button">What skills are listed?</button>
+      <button class="chat-suggestion" type="button">How can I get in touch?</button>
+    </div>
+
+    <form class="chat-form" id="chatForm">
+      <label class="sr-only" for="chatInput">Type your message</label>
+      <textarea class="chat-input" id="chatInput" rows="1"
+                placeholder="Ask about the portfolio… (Enter to send, Shift+Enter for a new line)"></textarea>
+      <button class="chat-send" id="chatSend" type="submit" aria-label="Send message">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l16-8-6.5 16-2.4-6.1L4 12z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+      </button>
+    </form>
+    <!-- NOTE: the assistant calls the Gemini API from the browser using the key in script.js.
+         Never commit a real key to a public repository (see README → API security warning). -->
+  </section>
+
+  <!-- =====================================================
+       NOSCRIPT FALLBACK
+       Without JavaScript: hide the preloader, reveal all
+       animated content and hide the chat UI.
+       ===================================================== -->
+  <noscript>
+    <style>
+      .preloader, .chat-toggle, .chat-panel, .cursor-dot, .cursor-ring, .scroll-progress { display: none !important; }
+      [data-reveal] { opacity: 1 !important; transform: none !important; }
+      .bar__fill { height: var(--h, 60%) !important; }
+    </style>
+    <p style="position:fixed;bottom:12px;left:12px;right:12px;z-index:60;background:#0b0f1a;border:1px solid rgba(255,255,255,0.15);padding:10px 14px;border-radius:10px;font-size:14px;color:#cbd5e1;text-align:center;">
+      JavaScript is disabled — the animations and the AI chat are unavailable. All content is still readable.
+    </p>
+  </noscript>
+
+  <!-- The single JavaScript file of the project (loaded last so the DOM exists) -->
+  <script src="script.js" defer></script>
+</body>
+</html>
